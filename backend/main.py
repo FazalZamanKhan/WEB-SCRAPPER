@@ -59,7 +59,8 @@ def run_scraper_async(params: ScrapeRequest):
         "max_results": params.max_results,
         "filters": params.filters.dict()
     }
-    loop.run_until_complete(scraper_controller.start(scrape_google_maps, params_dict))
+    # Start and WAIT for scraping to finish
+    loop.run_until_complete(scraper_controller._run(scrape_google_maps, params_dict))
     results = scraper_controller.get_results()
     # Determine if website column is needed
     filters = params.filters
